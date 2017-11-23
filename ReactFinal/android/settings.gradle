@@ -1,0 +1,3 @@
+rootProject.name = 'ReactFinal'
+
+include ':app'
