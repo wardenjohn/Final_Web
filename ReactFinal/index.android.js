@@ -9,23 +9,24 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions,
 } from 'react-native';
+import Navigation_bar from './app/component/Navigation_bar'
+//import Navigator from 'react-navigation'
+import DishContainor from './app/component/DishContainor'
+
 
 export default class ReactFinal extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <Navigation_bar /> 
+
+        <View style={styles.dishView_style}>
+          <DishContainor height={100}  width={50} backgroundColor='black'/>
+          
+        </View>
       </View>
     );
   }
@@ -34,20 +35,16 @@ export default class ReactFinal extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  for_time : {//this style just want to give some blank to the top for user to see the time and wifi
+     height : Dimensions.get('window').height/50,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  dishView_style : {
+    flexDirection : 'row',
+  }
 });
 
 AppRegistry.registerComponent('ReactFinal', () => ReactFinal);
