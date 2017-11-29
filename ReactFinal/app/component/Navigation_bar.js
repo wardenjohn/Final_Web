@@ -25,8 +25,8 @@ export default class Navigation_bar extends Component{
     constructor(props){
         super(props);
         this.state={
-            listVisible : false,
-            userVisible : true,
+            listVisible : true,
+            userVisible : false,
         }
     }
     select_level(){
@@ -46,7 +46,7 @@ export default class Navigation_bar extends Component{
         return(
             <View style={style_bar.containor}>
                 <TouchableOpacity onPress={()=>this.select_level()}>
-                    <Image source={require('/Users/zhangyongde/Desktop/ReactFinal/Final_Web/ReactFinal/app/element/gps.png')} 
+                    <Image source={require('./../element/gps.png')} 
                             style = {style_bar.navigate_button}/>
                     <Navigation_list visible={this.state.listVisible}/>
                 </TouchableOpacity>
@@ -56,7 +56,7 @@ export default class Navigation_bar extends Component{
                 </View>
 
                 <TouchableOpacity onPress={()=>this.showWindow()}>
-                    <Image source={require('/Users/zhangyongde/Desktop/ReactFinal/Final_Web/ReactFinal/app/element/user.png')} 
+                    <Image source={require('./../element/user.png')} 
                             style={style_bar.user_button} />
                     <UserLog visible ={this.state.userVisible} />
                 </TouchableOpacity>

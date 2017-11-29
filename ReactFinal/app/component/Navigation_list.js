@@ -8,7 +8,8 @@ import {
   Modal,
   FlatList,
   TouchableOpacity,
-  Button
+  Button,
+  DeviceEventEmitter
 } from 'react-native';
 import {List,ListItem} from 'react-native-elements'
 
@@ -71,15 +72,18 @@ export default class SelectList extends Component{
                 <ListItem
                 title={item.item.name}
                 hideChevron = {true}
+                onPress = {()=>this.change_stateVisible(item.index)}
                 />
             </TouchableOpacity>
           )
       }
 
-    change_stateVisible(){
+    change_stateVisible(index){
+        //alert(index+1);
         this.setState({
             isVisible : !(this.state.isVisible),
-        })
+        });
+        DeviceEventEmitter.emit('Navigation_bar',`${index}`);
     }
 }
 

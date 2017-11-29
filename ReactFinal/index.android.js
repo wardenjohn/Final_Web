@@ -18,17 +18,29 @@ import DishContainor from './app/component/DishContainor'
 
 
 export default class ReactFinal extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      level : 1,
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
         <Navigation_bar /> 
 
+        <View  style={styles.showLevel}>
+            <Text style={styles.levelFont}>{`Level ${this.state.level}`}</Text>
+        </View>
+
         <View style={styles.dishView_style}>
           <DishContainor height={100}  width={50} backgroundColor='black'/>
-          
         </View>
       </View>
     );
+  }
+  handelLevel(event){
+      this.setState({ })
   }
 }
 
@@ -39,11 +51,21 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
-  for_time : {//this style just want to give some blank to the top for user to see the time and wifi
-     height : Dimensions.get('window').height/50,
+  showLevel : {//this style just want to give some blank to the top for user to see the time and wifi
+     height : Dimensions.get('window').height/20,
+     borderWidth : 1,
+     width : Dimensions.get('window').width,
+     backgroundColor : 'rgba(117,117,117,1)',
   },
   dishView_style : {
     flexDirection : 'row',
+  },
+  levelFont : {
+    fontSize : 20,
+    color : 'white',
+    alignItems : 'center',
+    justifyContent : 'center',
+    alignSelf : 'center'
   }
 });
 
