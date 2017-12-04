@@ -31,20 +31,30 @@ var level=[
         name:"Forth Canteen",
     }
 ]
+
+var isvisible;
 export default class SelectList extends Component{
     constructor(props){
         super(props);
         this.state={
-            isVisible : this.props.visible
+            isVisible : this.props.visible,
+            selectedLevel : 1,
         }
+        //alert(this.state.isVisible);
+        isvisible = this.state.isVisible;
+    }
+    shouldComponentUpdate(){
+        return true;
     }
     render(){
+        if(this.props.flag == 1)
+            isvisible = !isvisible;
         return(
         <View style={style_list.view_modal}>
-            <Modal animationType={'fade'}
+            <Modal animationType={'slide'}
                    transparent={true}
                    onRequestClose={() => {this.onRequestClose()}}
-                   visible={this.state.isVisible}
+                   visible={isvisible}
             >
                 <View style={style_list.backgroundStyle}>
                     <List>
@@ -57,6 +67,7 @@ export default class SelectList extends Component{
                     <Button title='隐藏选择菜单栏' onPress={()=>this.change_stateVisible()}/>
                 </View>
             </Modal>
+            
         </View>
         );
     }
@@ -82,8 +93,15 @@ export default class SelectList extends Component{
         //alert(index+1);
         this.setState({
             isVisible : !(this.state.isVisible),
+            selectedLevel : index,
         });
-        DeviceEventEmitter.emit('Navigation_bar',`${index}`);
+        if(index>=0)
+        DeviceEventEmitter.emit('Navigation_bar',`${index+1}`);
+        else{
+
+        }
+        //DeviceEventEmitter.emit('Navigation_bar',`${this.state.isVisible}`);
+        //alert(index);
     }
 }
 
@@ -101,5 +119,13 @@ const style_list = StyleSheet.create({
         flex : 1,
         backgroundColor : 'rgba(0,0,0,0.5)',
         justifyContent : 'flex-end'
-    }
+    },
+    
 })
+
+/*
+the truth is that we when the father can render but the inside of the children 
+the constructor can just run one time ,so ,the even we give a different pramater
+the values will not change just because the button can not be changed outsize the 
+constoctor
+*/

@@ -15,13 +15,14 @@ import {
 
 var win_width = Dimensions.get('window').width/2;
 var win_height = Dimensions.get('window').height/2;
-
+var isShow;
 export default class UserLog extends Component{
     constructor(props){
         super(props);
         this.state ={
             isVisible : this.props.visible,
         }
+        isShow = this.state.isVisible;
     }
 
     chage_visable(){
@@ -31,7 +32,7 @@ export default class UserLog extends Component{
     }
 
     confirm(){
-
+        
     }//this funtion is for the confirm button
 
     cancel(){
@@ -45,12 +46,15 @@ export default class UserLog extends Component{
     }//this function is for the registry button
 
     render(){
+        if(this.props.flag == 2)
+            isShow  =!isShow;
+
         return(
         <View style={style_User.contain_modal}>
             <Modal animationType={'slide'}
              transparent={true}
              onRequestClose={() => {this.onRequestClose()}}
-             visible={this.state.isVisible}>
+             visible={isShow}>
 
                 <View style={style_User.modal_background}>
                     <View style={style_User.board_window}>

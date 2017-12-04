@@ -6,61 +6,83 @@ import {
     Text,
     Dimensions,
     Image,
-    ListView
+    ListView,
+    FlatList,
+    uri,
 }from 'react-native'
-import { List } from 'react-native-elements';
+import { List,ListItem } from 'react-native-elements';
+import DishInformation from './DishInformation';
 
-// var containor_width = Dimensions.get('window').width;
-// var containor_height = Dimensions.get('window').height;
 var backg;
 var containor_height;
 var containor_width;
 
-var test1=['1','2','3'];
-var test2=['4','5','6'];
-
+var level;
 export default class DishContainor extends Component{
     constructor(props){
         super(props);
-         containor_width = this.props.width;
+         containor_width = Dimensions.get('window').width;
          containor_height = this.props.height;
          backg = props.backgroundColor;
-         var ds = new ListView.DataSource({
-             rowHasChanged : (r1,r2) => r1 != r2,
-         })
+         level = this.props.level;
          this.state={
-             //containor_height : props.height,
-             //containor_width : props.width,
-             dataSource : ds,
-             data1 : test1,
-             data2 : test2, 
-        }
+             dishInformation : null,
+             users : [],
+         }
+    }
+
+    componentDidMount(){
+        fetch('https://api.github.com/users')
+        .then( response => response.json() )    
+        .then( data => {
+              this.setState({ users : data })
+            })
+        .catch( error => alert(error) )
     }
 
     render(){
-
-        containor_width = this.props.width;
-        containor_height = this.props.height;
+        level = this.props.level;
         return(
             <View style={ContainorStyle.containor}>
-                 {/* <ListView dataSource={this.state.data1}
-                 renderRow={(rowData,srctionId,rowId)=> this.renderRow(rowData,rowId)}
-                 showsHorizontalScrollIndicator={false}
-                 />
-                 <ListView 
-                 dataSource={his.state.data2}
-                 renderRow={(rowData,srctionId,rowId)=> this.renderRow(rowData,rowId)}
-                 showsHorizontalScrollIndicator={false}/> */}
+                <View style={ContainorStyle.inOneRow}>
+                    <List>
+                        <FlatList
+                            temSeparatorComponent = {this.sepa}
+                            horizontal={false}
+                            data={this.state.users}
+                            renderItem={this._renderItem}
+                            ItemSeparatorComponent = {this._separactor}
+                            ListFooterComponent = {this._footer}
+                            keyExtractor = {item => item.id}
+                            style={ContainorStyle.itemStyle}
+                        />
+                    </List>
+                </View>
             </View>
         );
+    }
+
+    _separactor(){
+        return(<View style={ContainorStyle.border}/>);
+    }
+
+    _renderItem(item){
+        return(
+            <TouchableOpacity >
+                <ListItem
+                    title={`${item.login}`}
+                />
+                
+            </TouchableOpacity>
+        )
     }
 }
 // 
 const ContainorStyle  = StyleSheet.create({
     containor : {             //draw a border to show the containor
-        width : containor_width/5,
+        width : containor_width,
         height : containor_height/10,
-        flexDirection : 'row',
+        flexDirection : 'column',
         alignItems : 'center',
         alignSelf : 'center',
         justifyContent : 'space-around',
@@ -71,5 +93,14 @@ const ContainorStyle  = StyleSheet.create({
         width : containor_width,
         height : containor_height,
         backgroundColor : backg,
+    },
+    inOneRow : {
+        width : Dimensions.get('window').width,
+    },
+    border : {
+        borderWidth : 1,
+    },
+    itemStyle : {
+        height : Dimensions.get('window').height,
     }
 });

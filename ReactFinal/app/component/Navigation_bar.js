@@ -6,7 +6,8 @@ import {
     Text,
     Dimensions,
     Image,
-    Modal
+    Modal,
+    DeviceEventEmitter
 }from 'react-native'
 import {StackNavigator} from 'react-navigation'
 import Navigation_list from './Navigation_list' //this is to show the list to select the level
@@ -17,50 +18,76 @@ var window_width = Dimensions.get('window').width;
 var window_height = Dimensions.get('window').height;
 var bar_height = window_height/10;
 
-//the method I want to realize is that select_level function can return a list as a component
-//after we cilck one of the element of the list ,it will change into another page
-//the same as the User button
-// var listVisible = false;
+
 export default class Navigation_bar extends Component{
     constructor(props){
         super(props);
         this.state={
-            listVisible : true,
+            listVisible : false,
             userVisible : false,
+            level : 1,
+            flag : 0,
         }
+        
     }
     select_level(){
-        //alert(this.state.listVisible);
-        this.setState({listVisible : !this.state.listVisible});
-        // setTimeout(()=>{alert("!!")},2000);
+        this.setState({
+            listVisible : !this.state.listVisible,
+            flag : 1.
+        });
         this.forceUpdate();
+        DeviceEventEmitter.emit('ReactFinal',`${this.state.level}`);
     }
 
     showWindow(){
         this.setState({
             userVisible : !(this.state.userVisible),
+            flag : 2,
         })
     }
 
+    componentDidMount(){
+        this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
+            this.setState({
+                level : level,
+            })
+        })
+        this.forceUpdate();
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
     render(){
         return(
-            <View style={style_bar.containor}>
-                <TouchableOpacity onPress={()=>this.select_level()}>
-                    <Image source={require('./../element/gps.png')} 
-                            style = {style_bar.navigate_button}/>
-                    <Navigation_list visible={this.state.listVisible}/>
-                </TouchableOpacity>
-                
-                <View >
-                    <Text style={style_bar.title}> Lazy Menu </Text>
+            <View >
+                <View style={style_bar.containor}>
+                    <TouchableOpacity onPress={()=>this.select_level()}>
+                        <Image source={require('./../element/gps.png')} 
+                                style = {style_bar.navigate_button}/>
+                    </TouchableOpacity>
+
+                        <Navigation_list visible={this.state.listVisible} flag={this.state.flag}/>
+
+                    <View >
+                        <Text style={style_bar.title}> Lazy Menu </Text>
+                    </View>
+
+                    <TouchableOpacity onPress={()=>this.showWindow()}>
+                        <Image source={require('./../element/user.png')} 
+                                style={style_bar.user_button} />
+                        <UserLog visible ={this.state.userVisible} flag={this.state.flag}/>
+                    </TouchableOpacity>
+                    
                 </View>
 
-                <TouchableOpacity onPress={()=>this.showWindow()}>
-                    <Image source={require('./../element/user.png')} 
-                            style={style_bar.user_button} />
-                    <UserLog visible ={this.state.userVisible} />
-                </TouchableOpacity>
+                <View  style={style_bar.showLevel}>
+                        <Text style={style_bar.levelFont}>{`Level ${this.state.level}`}</Text>
+                        
+                </View>
+                
             </View>
+            
         );
     }
 }
@@ -75,6 +102,12 @@ const style_bar = StyleSheet.create({
         alignSelf : 'center',
         //justifyContent : 'center'
     },
+    showLevel : {//this style just want to give some blank to the top for user to see the time and wifi
+        height : Dimensions.get('window').height/20,
+        borderWidth : 1,
+        width : Dimensions.get('window').width,
+        backgroundColor : 'rgba(117,117,117,1)',
+     },
     navigate_button : {
         width : window_width/5,
         height : bar_height,
@@ -100,5 +133,12 @@ const style_bar = StyleSheet.create({
         backgroundColor : 'black',
         height : 100,
         width : 100
-    }
+    },
+    levelFont : {
+        fontSize : 20,
+        color : 'white',
+        alignItems : 'center',
+        justifyContent : 'center',
+        alignSelf : 'center'
+      },
 });

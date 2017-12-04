@@ -11,9 +11,9 @@ import {
   Text,
   View,
   Dimensions,
+  DeviceEventEmitter
 } from 'react-native';
 import Navigation_bar from './app/component/Navigation_bar'
-//import Navigator from 'react-navigation'
 import DishContainor from './app/component/DishContainor'
 
 
@@ -24,17 +24,22 @@ export default class ReactFinal extends Component {
       level : 1,
     }
   }
+
+  componentDidMount(){
+      this.message=DeviceEventEmitter.addListener('ReactFinal',(levelc)=>{
+        this.setState({
+          level : levelc,
+        })
+      })
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Navigation_bar /> 
 
-        <View  style={styles.showLevel}>
-            <Text style={styles.levelFont}>{`Level ${this.state.level}`}</Text>
-        </View>
-
         <View style={styles.dishView_style}>
-          <DishContainor height={100}  width={50} backgroundColor='black'/>
+          <DishContainor height={100}  width={Dimensions.get('window').width} backgroundColor='black' level={this.state.level}/>
         </View>
       </View>
     );
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     justifyContent : 'center',
     alignSelf : 'center'
-  }
+  },
 });
 
 AppRegistry.registerComponent('ReactFinal', () => ReactFinal);
