@@ -75,7 +75,9 @@ export default class UserLog extends Component{
                             <Image source={require('/Users/zhangyongde/Desktop/ReactFinal/Final_Web/ReactFinal/app/element/password.png')}
                                 style={style_User.imageStyle}
                             />
-                            <TextInput style={style_User.inputStyle}/>
+                            <TextInput style={style_User.inputStyle}
+                            password={true}
+                            />
                         </View>
 
                         <View style={style_User.viewButton}>

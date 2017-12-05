@@ -33,6 +33,8 @@ export default class DishInformation extends Component{
                         <Text>X</Text>
                     </TouchableOpacity>
                 </View>
+                <View >
+                </View>
             </Modal>
         );
     }

@@ -2,6 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  * @flow
+ * <DishContainor height={100}  width={Dimensions.get('window').width} backgroundColor='black' level={this.state.level}/>
  */
 
 import React, { Component } from 'react';
@@ -11,10 +12,15 @@ import {
   Text,
   View,
   Dimensions,
-  DeviceEventEmitter
+  DeviceEventEmitter,
 } from 'react-native';
 import Navigation_bar from './app/component/Navigation_bar'
 import DishContainor from './app/component/DishContainor'
+import Dishpage from './app/component/Dishpage'
+import Page from './app/component/Page'
+import Navigator from 'react-navigation'
+import StackNavigator from 'react-navigation'
+
 
 
 export default class ReactFinal extends Component {
@@ -39,7 +45,7 @@ export default class ReactFinal extends Component {
         <Navigation_bar /> 
 
         <View style={styles.dishView_style}>
-          <DishContainor height={100}  width={Dimensions.get('window').width} backgroundColor='black' level={this.state.level}/>
+          <Page />
         </View>
       </View>
     );
@@ -48,6 +54,7 @@ export default class ReactFinal extends Component {
       this.setState({ })
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
