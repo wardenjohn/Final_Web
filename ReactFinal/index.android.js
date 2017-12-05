@@ -41,13 +41,7 @@ export default class ReactFinal extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Navigation_bar /> 
-
-        <View style={styles.dishView_style}>
           <Page />
-        </View>
-      </View>
     );
   }
   handelLevel(event){

@@ -17,6 +17,14 @@ import {Navigator,StackNavigator} from 'react-navigation'
 export default class Commemt extends Component{
     constructor(props){
         super(props);
+        this.state={
+            comment : [ {"id":"1","comment":"hahahaah"},
+                        {"id" : "2","comment": "hsiofghvaik"},
+                        {"id" : "3","comment": "hsiofghvaik"},
+                        {"id" : "4","comment": "hsiofghvaik"},
+                        {"id" : "5","comment": "hsiofghvaik"},
+                        {"id" : "6","comment": "hsiofghvaik"}]
+        }
     }
 
     render(){
@@ -25,9 +33,8 @@ export default class Commemt extends Component{
                 <List>
                     <FlatList
                         temSeparatorComponent = {this.sepa}
-                        ref = {(FlatList) => this._flatList = FlatList}
                         horizontal={false}
-                        data={this.state.users}
+                        data={this.state.comment}
                         renderItem={this._renderItem}
                         ItemSeparatorComponent = {this._separactor}
                         ListFooterComponent = {this._footer}
@@ -38,14 +45,27 @@ export default class Commemt extends Component{
         );
     }
 
-    _separactor = () =>{ return <View style={styles.separactor_sty}/>}
+    _separactor = () =>{ return <View style={OneComment.LineStyle}/>}
 
-    _rendenItem = (item) => {
+    _rendenItem(item){
         return(
             <ListItem
-                title={}
+                title={item.id}
+                subtitle={item.comment}
             />
         );
     }
 }
 
+var comm_width = Dimensions.get('window').width;
+var comm_height = Dimensions.get('window').height;
+
+const OneComment = StyleSheet.create({
+    OneComment : {
+        width : comm_width,
+        height : comm_height/10,
+    },
+    LineStyle : {
+        borderWidth : 1,
+    }
+});

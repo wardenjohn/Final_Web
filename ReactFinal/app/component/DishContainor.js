@@ -14,6 +14,7 @@ import {
 import Dishpage from './Dishpage'
 import { List,ListItem } from 'react-native-elements';
 import {Navigator,StackNavigator} from 'react-navigation'
+import Navigation_bar from './Navigation_bar'
 //import DishInformation from './DishInformation';
 
 var backg;
@@ -21,9 +22,16 @@ var containor_height;
 var containor_width;
 
 var level;
-export default class DishContainor extends Component{
-    static navigationOption = {
+var navigater;
+/**it is very funny that this.props.navigation is a blank object
+ * in order to use  the navigation function, I fource to make a var
+ * to take the navigate wihch is not blank and we can use this var as a function
+ * to sove this problem
+ */
+export default class DishContainor extends React.Component{
+    static navigationOptions = {
         title : 'Dish Information',
+        headerTitleStyle : {alignSelf : 'center'}
     }
     constructor(props){
         super(props);
@@ -128,20 +136,23 @@ export default class DishContainor extends Component{
          }
     }
 
-    componentDidMount(){
-        fetch('https://api.github.com/users')
-        .then( response => response.json() )    
-        .then( data => {
-              this.setState({ users : data })
-            })
-        .catch( error => alert(error) )
-    }
+    // componentDidMount(){
+    //     fetch('https://api.github.com/users')
+    //     .then( response => response.json() )    
+    //     .then( data => {
+    //           this.setState({ users : data })
+    //         })
+    //     .catch( error => alert(error) )
+    // }
 
     render(){
         const { navigate } = this.props.navigation;
+        //alert(navigate)
+        navigater = navigate;
         level = this.props.level;
-        alert("hi");
         return(
+            <View style={styles.container}>
+            <Navigation_bar />
             <View style={ContainorStyle.containor}>
                 <View style={ContainorStyle.inOneRow}>
                     <List>
@@ -151,11 +162,11 @@ export default class DishContainor extends Component{
                             data={this.state.users}
                             renderItem={this._renderItem}
                             ItemSeparatorComponent = {this._separactor}
-                            //ListFooterComponent = {this._footer}
                             keyExtractor = {item => item.id}
                         />
                     </List>
                 </View>
+            </View>
             </View>
         );
     }
@@ -165,12 +176,11 @@ export default class DishContainor extends Component{
     }
 
     _renderItem(item){
-
         return(
             <TouchableOpacity 
-            onPress={()=>this.props.navigation.navigate('Profile',{DishId : item.index})}
-            style={ContainorStyle.itemStyle}
-            >
+                onPress={()=>navigater('Profile',{DishId : item.index})}
+                style={ContainorStyle.itemStyle}>
+                
                <ListItem
                 title={item.item.login}
                 subtitle = {item.url}
@@ -179,12 +189,12 @@ export default class DishContainor extends Component{
                />
             </TouchableOpacity>
         )
-    }
+    }//in this Item we need to give a onPress function which can jump to another page
 
 }
 
 const ContainorStyle  = StyleSheet.create({
-    containor : {             //draw a border to show the containor
+    containor : {             
         width : containor_width,
         height : containor_height/10,
         flexDirection : 'column',
@@ -192,7 +202,6 @@ const ContainorStyle  = StyleSheet.create({
         alignSelf : 'center',
         justifyContent : 'space-around',
         borderWidth : 1,
-        // backgroundColor : backg,
     },
     image_style : {
         width : containor_width,
@@ -206,6 +215,31 @@ const ContainorStyle  = StyleSheet.create({
         borderWidth : 1,
     },
     itemStyle : {
-        height : Dimensions.get('window').height/5,
+        height : Dimensions.get('window').height/10,
     }
 });
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      backgroundColor: '#F5FCFF',
+    },
+    showLevel : {//this style just want to give some blank to the top for user to see the time and wifi
+       height : Dimensions.get('window').height/20,
+       borderWidth : 1,
+       width : Dimensions.get('window').width,
+       backgroundColor : 'rgba(117,117,117,1)',
+    },
+    dishView_style : {
+      flexDirection : 'row',
+    },
+    levelFont : {
+      fontSize : 20,
+      color : 'white',
+      alignItems : 'center',
+      justifyContent : 'center',
+      alignSelf : 'center'
+    },
+  });
