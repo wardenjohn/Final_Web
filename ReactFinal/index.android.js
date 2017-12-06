@@ -37,11 +37,12 @@ export default class ReactFinal extends Component {
           level : levelc,
         })
       })
+      
   }
 
   render() {
     return (
-          <Page />
+          <Page level={this.state.level}/>
     );
   }
   handelLevel(event){

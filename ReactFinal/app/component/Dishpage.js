@@ -10,14 +10,18 @@ import {
     FlatList,
     uri,
     NavigatorIOS,
+    TextInput,
+    Button,
+    ScrollView
 }from 'react-native'
 import { List,ListItem } from 'react-native-elements';
 import {Navigator,StackNavigator} from 'react-navigation'
 import Commemt from './Commemt'
 
+var info;
 export default class Dishpage extends Component{
     static navigationOptions = ({ navigation }) => ({
-        title : `${navigation.state.params.DishId}`,
+        title : `${navigation.state.params.DishId.login}`,//DishId.name
     });
     constructor(props){
         super(props);
@@ -25,29 +29,34 @@ export default class Dishpage extends Component{
             Info : [],
             sourceURL : this.props.url,
         }
+        
     }
 
     // componentDidMount(){
-    //     fetch(`${this.state.sourceURL}`)
+    //     fetch(`https://api.github.com/users`)
     //     .then( response => response.json() )
     //     .then( data=> {
     //         this.setState({ Info : data })
     //     })
     //     .catch( error => alert(error) )
     // }
+
     render(){
-        const { navigate } = this.props.navigation;
+        const { params } = this.props.navigation.state;
+        //comment_url = params.DishId.commenturl
+        var url = params.DishId.url
         return(
-            <View style={PageStyle.containor}>
+            <ScrollView style={PageStyle.containor}>
                 <View style={PageStyle.imageView}>
-                    <Image source={require('./../element/dish.jpg')}
+                    <Image source={require(`./../element/dish.jpg`)}
                     style={PageStyle.ImageStyle}/>
+                    <Text>{`${url}`}</Text>
                 </View>
 
                 <View style={PageStyle.seperator}/>
 
                 <View style={PageStyle.LikeView}>
-                    <Text>50</Text>
+                    <Text>{params.DishId.id}</Text>
                         <TouchableOpacity>
                             <Image source={require('./../element/like.png')} 
                             style={PageStyle.Like}
@@ -55,13 +64,20 @@ export default class Dishpage extends Component{
                         </TouchableOpacity>
                 </View>
 
-                <View style={PageStyle.Comment}>
-                    
+                <View style={PageStyle.seperator}/>
+
+                <View style={PageStyle.Introduction}>
+                    <Text>Introductionioaisfjhgvoasjdhnfklajsdhngfklajhdgklajsbdlkgjhabsk;lfjgdaskldghkasjhfdgpkasuhfdgiopuwqhargipqhaoirwuioaqhgpoiawudhgpoiwauhgpqwoiarghaioprghoiupwrhgepioawuhbgiuopwahseiugf</Text>
                 </View>
 
-                <View style={PageStyle.InputStyle}>
+                <View style={PageStyle.seperator} />
+                
+                <View style={PageStyle.Comment}>
+                    <Commemt url={url}/>
                 </View>
-            </View>
+
+                
+            </ScrollView>
         );
     }
 }
@@ -99,16 +115,20 @@ const PageStyle = StyleSheet.create({
     LikeStyle : {
         width : mon_width,
         height : mon_heigth/5,
+        alignItems : 'flex-end',
+        alignSelf : 'flex-end',
     },
     LikeView : {
         alignItems : 'flex-end',
         width : mon_width,
-        height : mon_heigth/5,
+        height : mon_heigth/25,
+        alignSelf : 'flex-end',
+        flexDirection : 'row'
     },
     CommentStyle : {
-
+        width : mon_width,
     },
-    InputStyle : {
+    Introduction : {
 
     }
 })

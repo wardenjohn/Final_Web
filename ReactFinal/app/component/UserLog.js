@@ -44,7 +44,8 @@ export default class UserLog extends Component{
     registry(){
 
     }//this function is for the registry button
-
+    //引用的两个图片可以不用发生改变，这个是element里面配有的元素
+    //在密码框里面我设定了password的属性为真，但是在调试的时候不知道为什么就不能显示密码的样式，很奇怪，你可以调一下
     render(){
         if(this.props.flag == 2)
             isShow  =!isShow;
@@ -65,19 +66,20 @@ export default class UserLog extends Component{
                         </View>
 
                         <View style={style_User.viewUserName}>
-                            <Image source={require('/Users/zhangyongde/Desktop/ReactFinal/Final_Web/ReactFinal/app/element/userslog.png')}
+                            <Image source={require('./../element/userslog.png')}
                                style={style_User.imageStyle}
                             />
-                            <TextInput style={style_User.inputStyle}/>
+                            <TextInput style={style_User.inputStyle}
+                                        onChangeText={(text)=>this._changeUsername}/>
                         </View>
 
                         <View style={style_User.viewUserPassword}>
-                            <Image source={require('/Users/zhangyongde/Desktop/ReactFinal/Final_Web/ReactFinal/app/element/password.png')}
+                            <Image source={require('./../element/password.png')}
                                 style={style_User.imageStyle}
                             />
                             <TextInput style={style_User.inputStyle}
-                            password={true}
-                            />
+                                        password={true}
+                                        onChangeText={(text)=>this._changePassword}/>
                         </View>
 
                         <View style={style_User.viewButton}>
@@ -93,6 +95,14 @@ export default class UserLog extends Component{
             </Modal>
         </View>
         );
+    }
+
+    _changePassword(text){
+
+    }
+
+    _changeUsername(text){
+
     }
 }
 

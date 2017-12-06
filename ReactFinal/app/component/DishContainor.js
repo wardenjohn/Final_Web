@@ -10,6 +10,7 @@ import {
     FlatList,
     uri,
     NavigatorIOS,
+    DeviceEventEmitter
 }from 'react-native'
 import Dishpage from './Dishpage'
 import { List,ListItem } from 'react-native-elements';
@@ -132,6 +133,78 @@ export default class DishContainor extends React.Component{
                 "received_events_url": "https://api.github.com/users/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
+              },{
+                "login": "defunkt",
+                "id": 6,
+                "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/defunkt",
+                "html_url": "https://github.com/defunkt",
+                "followers_url": "https://api.github.com/users/defunkt/followers",
+                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/users/defunkt/orgs",
+                "repos_url": "https://api.github.com/users/defunkt/repos",
+                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "type": "User",
+                "site_admin": true
+              },{
+                "login": "defunkt",
+                "id": 7,
+                "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/defunkt",
+                "html_url": "https://github.com/defunkt",
+                "followers_url": "https://api.github.com/users/defunkt/followers",
+                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/users/defunkt/orgs",
+                "repos_url": "https://api.github.com/users/defunkt/repos",
+                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "type": "User",
+                "site_admin": true
+              },{
+                "login": "defunkt",
+                "id": 8,
+                "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/defunkt",
+                "html_url": "https://github.com/defunkt",
+                "followers_url": "https://api.github.com/users/defunkt/followers",
+                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/users/defunkt/orgs",
+                "repos_url": "https://api.github.com/users/defunkt/repos",
+                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "type": "User",
+                "site_admin": true
+              },{
+                "login": "defunkt",
+                "id": 9,
+                "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/defunkt",
+                "html_url": "https://github.com/defunkt",
+                "followers_url": "https://api.github.com/users/defunkt/followers",
+                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/users/defunkt/orgs",
+                "repos_url": "https://api.github.com/users/defunkt/repos",
+                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "type": "User",
+                "site_admin": true
               },],
          }
     }
@@ -145,9 +218,17 @@ export default class DishContainor extends React.Component{
     //     .catch( error => alert(error) )
     // }
 
+    componentWillMount(){
+        this.message=DeviceEventEmitter.addListener('DishContainor',(levelc)=>{
+            this.setState({
+              level : levelc,
+            })
+          })    
+    }
+    //users 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
     render(){
         const { navigate } = this.props.navigation;
-        //alert(navigate)
+        //alert(this.state.level);
         navigater = navigate;
         level = this.props.level;
         return(
@@ -158,11 +239,13 @@ export default class DishContainor extends React.Component{
                     <List>
                         <FlatList
                             temSeparatorComponent = {this.sepa}
+                            ListHeaderComponent={null}
                             horizontal={false}
                             data={this.state.users}
                             renderItem={this._renderItem}
                             ItemSeparatorComponent = {this._separactor}
                             keyExtractor = {item => item.id}
+                            onEndReachedThreshold={0.5}
                         />
                     </List>
                 </View>
@@ -178,14 +261,14 @@ export default class DishContainor extends React.Component{
     _renderItem(item){
         return(
             <TouchableOpacity 
-                onPress={()=>navigater('Profile',{DishId : item.index})}
+                onPress={()=>navigater('Profile',{DishId : item.item})}
                 style={ContainorStyle.itemStyle}>
-                
+
                <ListItem
-                title={item.item.login}
-                subtitle = {item.url}
-                roundAvatar
-                avatar={ {uri : item.avatar_url} }
+                    title={item.item.login}
+                    subtitle = {item.url}
+                    roundAvatar
+                    avatar={ {uri : item.avatar_url} }
                />
             </TouchableOpacity>
         )

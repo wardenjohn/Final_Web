@@ -36,7 +36,7 @@ export default class Navigation_bar extends Component{
             flag : 1.
         });
         this.forceUpdate();
-        DeviceEventEmitter.emit('ReactFinal',`${this.state.level}`);
+        DeviceEventEmitter.emit('DishContainor',`${this.state.level}`);
     }
 
     showWindow(){
@@ -46,7 +46,7 @@ export default class Navigation_bar extends Component{
         })
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
             this.setState({
                 level : level,
@@ -55,9 +55,14 @@ export default class Navigation_bar extends Component{
         this.forceUpdate();
     }
 
-    shouldComponentUpdate(){
-        return true;
-    }
+    // shouldComponentUpdate(){
+    //     this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
+    //         this.setState({
+    //             level : level,
+    //         })
+    //     })
+    //     this.forceUpdate();
+    // }
     render(){
         return(
             <View >

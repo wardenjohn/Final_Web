@@ -10,6 +10,9 @@ import {
     FlatList,
     uri,
     NavigatorIOS,
+    TextInput,
+    Button,
+    ScrollView
 }from 'react-native'
 import { List,ListItem } from 'react-native-elements';
 import {Navigator,StackNavigator} from 'react-navigation'
@@ -23,11 +26,13 @@ export default class Commemt extends Component{
                         {"id" : "3","comment": "hsiofghvaik"},
                         {"id" : "4","comment": "hsiofghvaik"},
                         {"id" : "5","comment": "hsiofghvaik"},
-                        {"id" : "6","comment": "hsiofghvaik"}]
+                        {"id" : "6","comment": "hsiofghvaik"}],
+            comment_url : this.props.url,
         }
     }
 
     render(){
+        //fetch url into comment[]
         return(
             <View>
                 <List>
@@ -37,22 +42,33 @@ export default class Commemt extends Component{
                         data={this.state.comment}
                         renderItem={this._renderItem}
                         ItemSeparatorComponent = {this._separactor}
-                        ListFooterComponent = {this._footer}
                         keyExtractor = {item => item.id}
+                        ListFooterComponent = {this._footer}
                     />
                 </List>
             </View>
         );
     }
-
+    _footer(){
+        return(
+            <View style={OneComment.InputStyle}>
+                <TextInput style={OneComment.Input}/>
+                <Button style={OneComment.Submmit} title={`submit`}
+                    onPress={()=> alert("clicked")}
+                />
+            </View>
+        );
+    }
     _separactor = () =>{ return <View style={OneComment.LineStyle}/>}
 
-    _rendenItem(item){
+    _renderItem(item){
         return(
-            <ListItem
-                title={item.id}
-                subtitle={item.comment}
-            />
+            <TouchableOpacity>
+                <ListItem
+                    title={item.item.id}
+                    subtitle={item.item.comment}
+                />
+            </TouchableOpacity>
         );
     }
 }
@@ -67,5 +83,16 @@ const OneComment = StyleSheet.create({
     },
     LineStyle : {
         borderWidth : 1,
+    },
+    InputStyle : {
+        height : comm_height/15,
+        width : comm_width,
+        flexDirection : 'row'
+    },
+    Input : {
+        width : comm_width/1.2,
+    },
+    Submmit : {
+        height : comm_height/20,
     }
 });
