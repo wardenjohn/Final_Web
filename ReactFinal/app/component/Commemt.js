@@ -46,16 +46,19 @@ export default class Commemt extends Component{
                         ListFooterComponent = {this._footer}
                     />
                 </List>
-            </View>
-        );
-    }
-    _footer(){
-        return(
-            <View style={OneComment.InputStyle}>
-                <TextInput style={OneComment.Input}/>
+                <TextInput style={OneComment.Input} onChangeText={(text)=>this._try()}/>
                 <Button style={OneComment.Submmit} title={`submit`}
                     onPress={()=> alert("clicked")}
                 />
+            </View>
+        );
+    }
+    _try(){
+        alert("hi");
+    }
+    _footer(){
+        return(
+            <View style={OneComment.InputStyle}> 
             </View>
         );
     }
