@@ -47,11 +47,11 @@ export default class Navigation_bar extends Component{
     }
 
     componentWillMount(){
-        this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
+        this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level,)=>{
             this.setState({
                 level : level,
             })
-        })
+        });
         this.forceUpdate();
     }
 
@@ -81,19 +81,22 @@ export default class Navigation_bar extends Component{
                     <TouchableOpacity onPress={()=>this.showWindow()}>
                         <Image source={require('./../element/user.png')} 
                                 style={style_bar.user_button} />
-                        <UserLog visible ={this.state.userVisible} flag={this.state.flag}/>
+                        <UserLog visible ={this.state.userVisible} change_function={this._changeUser} flag={this.state.flag}/>
                     </TouchableOpacity>
                     
                 </View>
 
                 <View  style={style_bar.showLevel}>
                         <Text style={style_bar.levelFont}>{`Level ${this.state.level}`}</Text>
-                        
                 </View>
                 
             </View>
             
         );
+    }
+
+    _changeUser=()=>{
+        this.setState({userVisible : !this.state.userVisible})
     }
 }
 

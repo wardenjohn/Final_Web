@@ -10,52 +10,113 @@ import {
   TouchableOpacity,
   Button,
   Image,
-  TextInput
+  TextInput,
+  DeviceEventEmitter
 } from 'react-native';
 
 var win_width = Dimensions.get('window').width/2;
 var win_height = Dimensions.get('window').height/2;
 var isShow;
+var ok =1 ;
 export default class UserLog extends Component{
     constructor(props){
         super(props);
         this.state ={
             isVisible : this.props.visible,
+            username : "",
+            password : ""
         }
         isShow = this.state.isVisible;
     }
 
-    chage_visable(){
-        this.setState({
-            isVisible : !this.state.isVisible,
-        })
+    _changeusername(text){
+        this.setState({username:text})
+    }
+
+    _changepassword(text){
+        this.setState({password:text})
     }
 
     confirm(){
-        
+        let opts = {
+            method:"post",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            })
+        }
+        let url = "http://192.168.57.1:8000/login/"
+        fetch(url,opts)
+        .then((response) => {  
+            return response.json();
+        })  
+        .then((responseData) => {  
+            this.setState({text:responseData.massage});
+
+            // responseData.username
+
+            alert(this.state.text);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        }) 
     }//this funtion is for the confirm button
 
     cancel(){
+        ok = 1;
         this.setState({
             isVisible : !(this.state.isVisible),
-        })
+        });
+        
     }
 
     registry(){
+        let opts = {
+            method:"post",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            })
+        }
+        let url = "http://192.168.57.1:8000/regist/"
+        fetch(url,opts)  
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            // let temp = responseData;
 
+            this.setState({text:responseData});
+            alert(this.state.text);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        }) 
     }//this function is for the registry button
-    //引用的两个图片可以不用发生改变，这个是element里面配有的元素
-    //在密码框里面我设定了password的属性为真，但是在调试的时候不知道为什么就不能显示密码的样式，很奇怪，你可以调一下
-    render(){
-        if(this.props.flag == 2)
-            isShow  =!isShow;
 
+    _changeState(){
+        this.setState({isVisible : this.state.isVisible});
+    }
+    chage_visable(){
+        this.props.change_function();
+    }
+    render(){
+        isShow  = this.props.visible;
         return(
         <View style={style_User.contain_modal}>
             <Modal animationType={'slide'}
-             transparent={true}
-             onRequestClose={() => {this.onRequestClose()}}
-             visible={isShow}>
+                transparent={true}
+                onRequestClose={() => {this.onRequestClose()}}
+                visible={isShow}
+            >
 
                 <View style={style_User.modal_background}>
                     <View style={style_User.board_window}>
@@ -69,8 +130,10 @@ export default class UserLog extends Component{
                             <Image source={require('./../element/userslog.png')}
                                style={style_User.imageStyle}
                             />
-                            <TextInput style={style_User.inputStyle}
-                                        onChangeText={(text)=>this._changeUsername}/>
+                            <TextInput 
+                                style={style_User.inputStyle}
+                                onChangeText={(text) => this._changeusername(text)}
+                            />
                         </View>
 
                         <View style={style_User.viewUserPassword}>
@@ -78,14 +141,15 @@ export default class UserLog extends Component{
                                 style={style_User.imageStyle}
                             />
                             <TextInput style={style_User.inputStyle}
-                                        password={true}
-                                        onChangeText={(text)=>this._changePassword}/>
+                                password={true}
+                                onChangeText={(text) => this._changepassword(text)}
+                            />
                         </View>
 
                         <View style={style_User.viewButton}>
                             <Button title={'      确定      '} onPress={()=>this.confirm()}/>
                             <Text> </Text>
-                            <Button title={'      取消      '} onPress={()=>this.cancel()}/>
+                            <Button title={'      取消      '} onPress={()=>this.chage_visable()}/>
                         </View> 
 
                         <Button title={'注册'} onPress={()=>this.registry()}/>    
@@ -95,14 +159,6 @@ export default class UserLog extends Component{
             </Modal>
         </View>
         );
-    }
-
-    _changePassword(text){
-
-    }
-
-    _changeUsername(text){
-
     }
 }
 
