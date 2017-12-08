@@ -45,6 +45,8 @@ export default class Dishpage extends Component{
         const { params } = this.props.navigation.state;
         //comment_url = params.DishId.commenturl
         var url = params.DishId.url
+        var price = params.DishId.price
+        var description = params.DishId.description
         return(
             <ScrollView style={PageStyle.containor}>
                 <View style={PageStyle.imageView}>
@@ -57,17 +59,17 @@ export default class Dishpage extends Component{
 
                 <View style={PageStyle.LikeView}>
                     <Text>{params.DishId.id}</Text>
-                        <TouchableOpacity>
-                            <Image source={require('./../element/like.png')} 
+                    <TouchableOpacity>
+                        <Image source={require('./../element/like.png')} 
                             style={PageStyle.Like}
-                            />
-                        </TouchableOpacity>
+                        />
+                    </TouchableOpacity>
                 </View>
 
                 <View style={PageStyle.seperator}/>
 
                 <View style={PageStyle.Introduction}>
-                    <Text>Introductionioaisfjhgvoasjdhnfklajsdhngfklajhdgklajsbdlkgjhabsk;lfjgdaskldghkasjhfdgpkasuhfdgiopuwqhargipqhaoirwuioaqhgpoiawudhgpoiwauhgpqwoiarghaioprghoiupwrhgepioawuhbgiuopwahseiugf</Text>
+                    <Text>{description}</Text>
                 </View>
 
                 <View style={PageStyle.seperator} />

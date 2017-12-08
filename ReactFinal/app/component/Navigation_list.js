@@ -50,44 +50,43 @@ export default class SelectList extends Component{
         if(this.props.flag == 1)
             isvisible = !isvisible;
         return(
-        <View style={style_list.view_modal}>
-            <Modal animationType={'slide'}
-                   transparent={true}
-                   onRequestClose={() => {this.onRequestClose()}}
-                   visible={isvisible}
-            >
-                <View style={style_list.backgroundStyle}>
-                    <List>
-                        <FlatList
-                            data={level}
-                            renderItem={this._renderItem}
-                            ItemSeparatorComponent = {this.sepa}
-                        />
-                    </List>
-                    <Button title='隐藏选择菜单栏' onPress={()=>this.change_stateVisible()}/>
-                </View>
-            </Modal>
-            
-        </View>
+            <View style={style_list.view_modal}>
+                <Modal animationType={'slide'}
+                       transparent={true}
+                       onRequestClose={() => {this.onRequestClose()}}
+                       visible={isvisible}
+                >
+                    <View style={style_list.backgroundStyle}>
+                        <List>
+                            <FlatList
+                                data={level}
+                                renderItem={this._renderItem}
+                                ItemSeparatorComponent = {this.sepa}
+                            />
+                        </List>
+                        <Button title='隐藏选择菜单栏' onPress={()=>this.change_stateVisible()}/>
+                    </View>
+                </Modal>
+                
+            </View>
         );
     }
 
     sepa(){
         return(<View style={style_list.border}/>)
-      }
+    }
 
-     _renderItem = (item) =>{
-        
-          return(
+    _renderItem = (item) =>{
+        return(
             <TouchableOpacity>
                 <ListItem
-                title={item.item.name}
-                hideChevron = {true}
-                onPress = {()=>this.change_stateVisible(item.index)}
+                    title={item.item.name}
+                    hideChevron = {true}
+                    onPress = {()=>this.change_stateVisible(item.index)}
                 />
             </TouchableOpacity>
-          )
-      }
+        )
+    }
 
     change_stateVisible(index){
         //alert(index+1);
@@ -96,7 +95,7 @@ export default class SelectList extends Component{
             selectedLevel : index,
         });
         if(index>=0)
-        DeviceEventEmitter.emit('Navigation_bar',`${index+1}`);
+            DeviceEventEmitter.emit('Navigation_bar',`${index+1}`);
         else{
 
         }

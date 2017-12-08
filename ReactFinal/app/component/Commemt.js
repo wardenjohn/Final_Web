@@ -21,7 +21,8 @@ export default class Commemt extends Component{
     constructor(props){
         super(props);
         this.state={
-            comment : [ {"id":"1","comment":"hahahaah"},
+            submittext : "",
+            comment : [ {"id" : "1","comment":"hahahaah"},
                         {"id" : "2","comment": "hsiofghvaik"},
                         {"id" : "3","comment": "hsiofghvaik"},
                         {"id" : "4","comment": "hsiofghvaik"},
@@ -43,24 +44,44 @@ export default class Commemt extends Component{
                         renderItem={this._renderItem}
                         ItemSeparatorComponent = {this._separactor}
                         keyExtractor = {item => item.id}
-                        ListFooterComponent = {this._footer}
+                        // ListFooterComponent = {this._footer}
                     />
                 </List>
-                <TextInput style={OneComment.Input} onChangeText={(text)=>this._try()}/>
-                <Button style={OneComment.Submmit} title={`submit`}
-                    onPress={()=> alert("clicked")}
-                />
+                <View style={OneComment.InputStyle}> 
+                    <TextInput style={OneComment.Input} 
+                        onChangeText={(text)=>this.setState({submittext : text})}
+                    />
+                    <Button style={OneComment.Submmit} title={`submit`}
+                        onPress={()=> this.submit()}
+                    />
+                </View>
             </View>
         );
     }
-    _try(){
-        alert("hi");
-    }
-    _footer(){
-        return(
-            <View style={OneComment.InputStyle}> 
-            </View>
-        );
+    submit(){
+        let opts = {
+            method:"post",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: this.state.submittext,
+            })
+        }
+        let url = "http://192.168.57.1:8000/index/"
+        fetch(url,opts)
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            // let temp = responseData;
+            this.setState({text:responseData});
+            alert(this.state.text);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        })
     }
     _separactor = () =>{ return <View style={OneComment.LineStyle}/>}
 

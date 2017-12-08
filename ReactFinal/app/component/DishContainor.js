@@ -36,187 +36,196 @@ export default class DishContainor extends React.Component{
     }
     constructor(props){
         super(props);
-         containor_width = Dimensions.get('window').width;
-         containor_height = this.props.height;
-         backg = props.backgroundColor;
-         level = this.props.level;
-         this.state={
-             dishInformation : null,
-             users : [{
+        containor_width = Dimensions.get('window').width;
+        containor_height = this.props.height;
+        backg = props.backgroundColor;
+        level = this.props.level;
+        this.state={
+            dishInformation : null,
+            dishes : [{
                 "login": "mojombo",
                 "id": 1,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/1?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/mojombo",
+                "url": "https://api.github.com/dishes/mojombo",
                 "html_url": "https://github.com/mojombo",
-                "followers_url": "https://api.github.com/users/mojombo/followers",
-                "following_url": "https://api.github.com/users/mojombo/following{/other_user}",
-                "gists_url": "https://api.github.com/users/mojombo/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/mojombo/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/mojombo/subscriptions",
-                "organizations_url": "https://api.github.com/users/mojombo/orgs",
-                "repos_url": "https://api.github.com/users/mojombo/repos",
-                "events_url": "https://api.github.com/users/mojombo/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/mojombo/received_events",
+                "followers_url": "https://api.github.com/dishes/mojombo/followers",
+                "following_url": "https://api.github.com/dishes/mojombo/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/mojombo/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/mojombo/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/mojombo/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/mojombo/orgs",
+                "repos_url": "https://api.github.com/dishes/mojombo/repos",
+                "events_url": "https://api.github.com/dishes/mojombo/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/mojombo/received_events",
                 "type": "User",
                 "site_admin": false
-              },
-              {
+            },
+            {
                 "login": "defunkt",
                 "id": 2,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 3,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 4,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 5,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 6,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 7,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 8,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },{
+            },{
                 "login": "defunkt",
                 "id": 9,
                 "avatar_url": "https://avatars0.githubusercontent.com/u/2?v=4",
                 "gravatar_id": "",
-                "url": "https://api.github.com/users/defunkt",
+                "url": "https://api.github.com/dishes/defunkt",
                 "html_url": "https://github.com/defunkt",
-                "followers_url": "https://api.github.com/users/defunkt/followers",
-                "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-                "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-                "organizations_url": "https://api.github.com/users/defunkt/orgs",
-                "repos_url": "https://api.github.com/users/defunkt/repos",
-                "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/defunkt/received_events",
+                "followers_url": "https://api.github.com/dishes/defunkt/followers",
+                "following_url": "https://api.github.com/dishes/defunkt/following{/other_user}",
+                "gists_url": "https://api.github.com/dishes/defunkt/gists{/gist_id}",
+                "starred_url": "https://api.github.com/dishes/defunkt/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/dishes/defunkt/subscriptions",
+                "organizations_url": "https://api.github.com/dishes/defunkt/orgs",
+                "repos_url": "https://api.github.com/dishes/defunkt/repos",
+                "events_url": "https://api.github.com/dishes/defunkt/events{/privacy}",
+                "received_events_url": "https://api.github.com/dishes/defunkt/received_events",
                 "type": "User",
                 "site_admin": true
-              },],
-         }
+            },],
+        }
     }
 
-    // componentDidMount(){
-    //     fetch('https://api.github.com/users')
-    //     .then( response => response.json() )    
-    //     .then( data => {
-    //           this.setState({ users : data })
-    //         })
-    //     .catch( error => alert(error) )
-    // }
+    componentDidMount(){
+        let opts = {
+            method:"get",
+        }
+        let url = "http://192.168.57.1:8000/showdish/"
+        fetch(url,opts)
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            this.setState({dishes:responseData});
+            alert(this.state.dishes);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        })
+    }
 
     componentWillMount(){
         this.message=DeviceEventEmitter.addListener('DishContainor',(levelc)=>{
@@ -225,7 +234,7 @@ export default class DishContainor extends React.Component{
             })
           })    
     }
-    //users 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
+    //dishes 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
     render(){
         const { navigate } = this.props.navigation;
         //alert(this.state.level);
@@ -241,7 +250,7 @@ export default class DishContainor extends React.Component{
                             temSeparatorComponent = {this.sepa}
                             ListHeaderComponent={null}
                             horizontal={false}
-                            data={this.state.users}
+                            data={this.state.dishes}
                             renderItem={this._renderItem}
                             ItemSeparatorComponent = {this._separactor}
                             keyExtractor = {item => item.id}
@@ -265,10 +274,10 @@ export default class DishContainor extends React.Component{
                 style={ContainorStyle.itemStyle}>
 
                <ListItem
-                    title={item.item.login}
-                    subtitle = {item.url}
+                    title={item.item.foodname}
+                    subtitle = {item.item.price}
                     roundAvatar
-                    avatar={ {uri : item.avatar_url} }
+                    avatar={ {uri : item.item.avatar_url} }
                />
             </TouchableOpacity>
         )
