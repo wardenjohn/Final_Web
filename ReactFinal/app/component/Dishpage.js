@@ -46,6 +46,7 @@ export default class Dishpage extends Component{
         //comment_url = params.DishId.commenturl
         var url = params.DishId.url
         var price = params.DishId.price
+        var id = params.DishId.foodid
         var description = params.DishId.description
         return(
             <ScrollView style={PageStyle.containor}>
@@ -75,7 +76,7 @@ export default class Dishpage extends Component{
                 <View style={PageStyle.seperator} />
                 
                 <View style={PageStyle.Comment}>
-                    <Commemt url={url}/>
+                    <Commemt id={id}/>
                 </View>
 
                 

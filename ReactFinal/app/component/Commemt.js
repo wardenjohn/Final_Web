@@ -28,8 +28,27 @@ export default class Commemt extends Component{
                         {"id" : "4","comment": "hsiofghvaik"},
                         {"id" : "5","comment": "hsiofghvaik"},
                         {"id" : "6","comment": "hsiofghvaik"}],
-            comment_url : this.props.url,
         }
+    }
+
+    componentDidMount(){
+        let opts = {
+            method:"get",
+        }
+        let url = "http://192.168.57.1:8000/showmassage/"
+        url = url + `foodid${this.props.id}`
+        print(url)
+        fetch(url,opts)
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            this.setState({comments:responseData});
+            // alert(this.state.dishes);
+        })
+        .catch((error) =>{  
+            alert(error);
+        })
     }
 
     render(){
