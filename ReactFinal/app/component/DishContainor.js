@@ -22,7 +22,7 @@ var backg;
 var containor_height;
 var containor_width;
 
-var level;
+var level=1;
 var navigater;
 /**it is very funny that this.props.navigation is a blank object
  * in order to use  the navigation function, I fource to make a var
@@ -47,12 +47,13 @@ export default class DishContainor extends React.Component{
             change : 1,
         }
     }
-    componentDidMount(){
+
+    _test(){
         let opts = {
             method:"get",
         }
         let url = "http://192.168.57.1:8000/showdish/"
-        alert(this.state.level)
+        // alert(this.state.level)
         url = url + `floor${this.state.level}/`
         fetch(url,opts)
         .then((response) => {
@@ -60,7 +61,7 @@ export default class DishContainor extends React.Component{
         })
         .then((responseData) => {  
             this.setState({dishes:responseData});
-            alert(this.state.dishes);
+            // alert(this.state.dishes);
         })
         .catch((error) =>{  
             alert(error);
@@ -71,11 +72,16 @@ export default class DishContainor extends React.Component{
             this.setState({
                 level : levelc,
             })
-        })    
+        })
     }
     //dishes 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
     render(){
         const { navigate } = this.props.navigation;
+        if(this.state.level != level){
+            alert(this.state.level);
+            level = this.state.level
+            this._test();
+        }
         navigater = navigate;
         level = this.props.level;
         return(

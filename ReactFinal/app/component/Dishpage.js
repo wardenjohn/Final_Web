@@ -31,29 +31,17 @@ export default class Dishpage extends Component{
         }
         
     }
-
-    // componentDidMount(){
-    //     fetch(`https://api.github.com/users`)
-    //     .then( response => response.json() )
-    //     .then( data=> {
-    //         this.setState({ Info : data })
-    //     })
-    //     .catch( error => alert(error) )
-    // }
-
     render(){
         const { params } = this.props.navigation.state;
-        //comment_url = params.DishId.commenturl
-        var url = params.DishId.url
         var price = params.DishId.price
-        var id = params.DishId.foodid
+        var id = params.DishId.id
         var description = params.DishId.description
         return(
             <ScrollView style={PageStyle.containor}>
                 <View style={PageStyle.imageView}>
                     <Image source={require(`./../element/dish.jpg`)}
                     style={PageStyle.ImageStyle}/>
-                    <Text>{`${url}`}</Text>
+                    
                 </View>
 
                 <View style={PageStyle.seperator}/>

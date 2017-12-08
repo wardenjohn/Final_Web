@@ -35,24 +35,25 @@ export default class Commemt extends Component{
         let opts = {
             method:"get",
         }
-        let url = "http://192.168.57.1:8000/showmassage/"
+        let url = "http://192.168.57.1:8000/show/"
         url = url + `foodid${this.props.id}`
-        print(url)
+        // alert(url)
         fetch(url,opts)
         .then((response) => {
             return response.json();  
         })
         .then((responseData) => {  
-            this.setState({comments:responseData});
-            // alert(this.state.dishes);
+            this.setState({comment:responseData});
+            alert(this.state.comment[0].text);
         })
         .catch((error) =>{  
-            alert(error);
+            // alert(error);
         })
     }
 
     render(){
         //fetch url into comment[]
+        // alert(this.state.id)
         return(
             <View>
                 <List>
@@ -60,7 +61,7 @@ export default class Commemt extends Component{
                         temSeparatorComponent = {this.sepa}
                         horizontal={false}
                         data={this.state.comment}
-                        renderItem={this._renderItem}
+                        renderItem={this._renderItem.bind(this)}
                         ItemSeparatorComponent = {this._separactor}
                         keyExtractor = {item => item.id}
                         // ListFooterComponent = {this._footer}
@@ -109,7 +110,8 @@ export default class Commemt extends Component{
             <TouchableOpacity>
                 <ListItem
                     title={item.item.id}
-                    subtitle={item.item.comment}
+                    subtitle={item.item.text}
+                    
                 />
             </TouchableOpacity>
         );
