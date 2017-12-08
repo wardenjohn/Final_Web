@@ -48,7 +48,23 @@ export default class DishContainor extends React.Component{
         }
     }
     componentDidMount(){
-        
+        let opts = {
+            method:"get",
+        }
+        let url = "http://192.168.57.1:8000/showdish/"
+        alert(this.state.level)
+        url = url + `floor${this.state.level}/`
+        fetch(url,opts)
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            this.setState({dishes:responseData});
+            alert(this.state.dishes);
+        })
+        .catch((error) =>{  
+            alert(error);
+        })
     }
     componentWillMount(){
         this.message=DeviceEventEmitter.addListener('DishContainor',(levelc)=>{
