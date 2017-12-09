@@ -31,8 +31,8 @@ def index(request):
             text = req['text']
         # print(request.user.username)
             user = request.user.username
-
-            Massage.objects.create(user = user, text = text,foodid = 1)
+            foodid = req['foodid']
+            Massage.objects.create(user = user, text = text,foodid = foodid)
             return HttpResponse(json.dumps('post success!'),content_type="application/json")
         else:
             return HttpResponse(json.dumps('please login first!'))
@@ -90,13 +90,28 @@ def getloginuser(request):
 
 
 class ImgForm(forms.Form):
-    massage = forms.FileField(label='评论',max_length=50)
+    headImg = forms.FileField(label='评论',max_length=50)
     class Meta:  
         model=Img
 
 @csrf_exempt
 def img(request):
-    return render_to_response('1.html',{'form': ImgForm})
+    if request.method == 'GET':
+        return render_to_response('1.html',{'form': ImgForm})
+    else:
+        # print(request.FILES)
+        # imgf = Img(request.FILES)
+        # print(imgf)
+        image = Img()
+        image.headImg = request.FILES.get('headImg')
+        print(image.headImg)
+        image.save()
+        list = Img.objects.all()
+        data = serializer(list,output_type = 'json')
+        # img.headImg = imgf.cleaned_data['headImg']
+        # print(img.headImg)
+        return HttpResponse(data)
+        # return render_to_response('1.html',{'form': ImgForm})
 # class ImgForm(ModelForm):  
 #     class Meta:  
 #         model=Img  
@@ -118,4 +133,4 @@ def img(request):
 #     photos=Img.objects.all()  
 #     template_var['pics']=photos  
 #     return render_to_response('list.html',template_var,  
-#                        context_instance=RequestContext(request)) 
+#                        context_instance=RequestContext(request)) ;

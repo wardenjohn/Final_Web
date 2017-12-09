@@ -8,6 +8,8 @@ class Massage(models.Model):
 	foodid = models.IntegerField()
 	def __str__(self):
 		return self.text
+	class Meta:
+		ordering=['time']
 
 
 class Dish(models.Model):
@@ -15,6 +17,7 @@ class Dish(models.Model):
 	foodname = models.CharField(max_length = 30)
 	price = models.IntegerField()
 	description = models.CharField(max_length = 200)
+	headImg = models.FileField(upload_to='./upload/')
 	def __str__(self):
 		return self.foodname
 
@@ -22,4 +25,9 @@ class Dish(models.Model):
 # 	img = models.FileField(upload_to='./upload/')
 
 class Img(models.Model):
+	# foodid = models.
 	headImg = models.FileField(upload_to='./upload/')
+
+class SayGood(models.Model):
+	user = models.CharField(max_length = 50)
+	foodid = models.IntegerField()

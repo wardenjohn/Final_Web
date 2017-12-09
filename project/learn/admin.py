@@ -4,3 +4,4 @@ from django.contrib import admin
 from learn import models
 admin.site.register(models.Massage)
 admin.site.register(models.Dish)
+admin.site.register(models.Img)
