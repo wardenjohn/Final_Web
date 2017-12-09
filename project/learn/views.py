@@ -42,6 +42,9 @@ def regist(request):
     if request.method == 'POST':
         req = json.loads(request.body)
         username = req['username']
+        data = User.objects.filter(username = username)
+        if data.exists:
+            return HttpResponse(json.dumps("username has exists!"))
         password = req['password']
         user = User()
         user.username = username
@@ -132,3 +135,11 @@ def pdianzan(request):
 def gdianzan(request,foodid):
     res = SayGood.objects.filter(foodid = foodid)
     return HttpResponse(json.dumps(res.count()))
+
+@csrf_exempt
+def logout(request):
+    if request.user.is_authenticated:
+        auth.logout(request)
+        return HttpResponse(json.dumps("logout success!"))
+    else :
+        return HttpResponse(json.dumps("you haven't login"))

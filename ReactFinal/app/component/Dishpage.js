@@ -28,8 +28,24 @@ export default class Dishpage extends Component{
         this.state={
             Info : [],
             sourceURL : this.props.url,
+            like : 0,
         }
-        
+        const { params } = this.props.navigation.state; 
+        let ops = {
+            method : "get",
+        }
+        let url = "http://192.168.57.1:8000/gdianzan/";
+        url+=`foodid${params.DishId.id}`
+        fetch(url, ops)
+        .then((response) => {
+            return response.json();
+        })
+        .then((responseData) => {
+            this.setState({ like : responseData})
+        })
+        .catch((error)=>{
+            alert(error)
+        })
     }
     render(){
         const { params } = this.props.navigation.state;
@@ -48,8 +64,8 @@ export default class Dishpage extends Component{
                 <View style={PageStyle.seperator}/>
 
                 <View style={PageStyle.LikeView}>
-                    <Text>点赞的人数：{params.DishId.id}</Text>
-                    <TouchableOpacity onPress={()=>this._likeView()}>
+                    <Text>点赞的人数：{`${this.state.like}`}</Text>
+                    <TouchableOpacity onPress={()=>this._likeView(params)}>
                         <Image source={require('./../element/like.png')} 
                             style={PageStyle.Like}
                         />
@@ -73,7 +89,7 @@ export default class Dishpage extends Component{
         );
     }
 
-    _likeView(){
+    _likeView(params){
         let opts = {
             method:"post",
             headers: { 
@@ -85,7 +101,7 @@ export default class Dishpage extends Component{
                 foodid: params.DishId.id,
             })
         }
-        let url = "http://169.254.186.120:8000/pdianzan/"
+        let url = "http://192.168.57.1:8000/pdianzan/"
         fetch(url,opts)
         .then((response) => {
             return response.json();  

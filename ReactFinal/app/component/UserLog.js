@@ -8,11 +8,11 @@ import {
   Modal,
   FlatList,
   TouchableOpacity,
-  Button,
   Image,
   TextInput,
   DeviceEventEmitter
 } from 'react-native';
+import { Button } from 'react-native-elements'
 
 var win_width = Dimensions.get('window').width/2;
 var win_height = Dimensions.get('window').height/2;
@@ -50,7 +50,7 @@ export default class UserLog extends Component{
             })
         }
         
-        let url = "http://169.254.186.120:8000/login/"
+        let url = "http://192.168.57.1:8000/login/"
         fetch(url,opts)
         .then((response) => {  
             return response.json();
@@ -70,6 +70,7 @@ export default class UserLog extends Component{
         .catch((error) =>{  
             alert(error);  
         }) 
+        this.chage_visable()
     }//this funtion is for the confirm button
 
     cancel(){
@@ -92,7 +93,7 @@ export default class UserLog extends Component{
                 password: this.state.password,
             })
         }
-        let url = "http://172.20.10.3:8000/regist/"
+        let url = "http://192.168.57.1:8000/regist/"
         fetch(url,opts)  
         .then((response) => {
             return response.json();  
@@ -119,7 +120,31 @@ export default class UserLog extends Component{
         this.props.change_function();
     }
     _logout(){
-
+        let opts = {
+            method:"post",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            })
+        }
+        let url = "http://192.168.57.1:8000/logout/"
+        fetch(url,opts)  
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            this.setState({text:responseData});
+            let login = "Log in"
+            this.props.changeName("Log in");//can jump out the window
+            alert(this.state.text);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        }) 
         this.props.change_function();
     }
     render(){

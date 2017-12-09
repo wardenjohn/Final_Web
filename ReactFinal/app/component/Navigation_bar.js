@@ -35,7 +35,7 @@ export default class Navigation_bar extends Component{
             method:"GET",
         }
         
-        let url = "http://169.254.186.120:8000/getloginuser/"
+        let url = "http://192.168.57.1:8000/getloginuser/"
         fetch(url,opts)
         .then((response) => {  
             return response.json();

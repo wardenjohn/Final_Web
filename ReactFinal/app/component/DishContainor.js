@@ -56,7 +56,7 @@ export default class DishContainor extends React.Component{
         let opts = {
             method:"get",
         }
-        let url = "http://169.254.186.120:8000/showdish/"
+        let url = "http://192.168.57.1:8000/showdish/"
          //alert("fetch!"+this.state.level)
         url = url + `floor${this.state.level}/`
         fetch(url,opts)

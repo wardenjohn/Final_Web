@@ -35,7 +35,7 @@ export default class Commemt extends Component{
         let opts = {
             method:"get",
         }
-        let url = "http://169.254.186.120:8000/show/"
+        let url = "http://192.168.57.1:8000/show/"
         url = url + `foodid${this.props.id}`
         // alert(url)
         fetch(url,opts)
@@ -90,7 +90,7 @@ export default class Commemt extends Component{
                 foodid: this.props.id,
             })
         }
-        let url = "http://169.254.186.120:8000/index/"
+        let url = "http://192.168.57.1:8000/index/"
         fetch(url,opts)
         .then((response) => {
             return response.json();  
