@@ -77,10 +77,7 @@ export default class DishContainor extends React.Component{
         })
     }
 
-    _renderDish(){
-        this.setState({ren : !this.state.ren});
-        this.forceUpdate();
-    }
+    
 
     //dishes 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
     render(){
@@ -94,7 +91,7 @@ export default class DishContainor extends React.Component{
         }
         return(
             <View style={styles.container}>
-            <Navigation_bar renderDish={(level)=>this._renderDish(level)}/>
+            <Navigation_bar />
             <View style={ContainorStyle.containor}>
                 <View style={ContainorStyle.inOneRow}>
                     <List>

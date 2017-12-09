@@ -96,7 +96,6 @@ export default class SelectList extends Component{
         if(index>=0){
             DeviceEventEmitter.emit('DishContainor',`${index+1}`);
             DeviceEventEmitter.emit('Navigation_bar',`${index+1}`);
-            this.props.makerender();
         }  
         else{
 

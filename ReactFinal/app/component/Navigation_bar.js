@@ -38,7 +38,7 @@ export default class Navigation_bar extends Component{
             listVisible : !this.state.listVisible,
             flag : 1,
         });
-         this.props.renderDish()
+       
     }
 
     showWindow(){
@@ -54,14 +54,14 @@ export default class Navigation_bar extends Component{
                 level : level,
             })
         });
-        this.props.renderDish();
+        
     }
 
-    _makerender(){
-        this.setState({rend : !this.state.rend });
-        this.forceUpdate();
-        this.props.renderDish();
-    }
+    // _makerender(){
+    //     this.setState({rend : !this.state.rend });
+    //     this.forceUpdate();
+        
+    // }
     render(){
         return(
             <View >
@@ -73,7 +73,7 @@ export default class Navigation_bar extends Component{
 
                         <Navigation_list visible={this.state.listVisible} 
                                             flag={this.state.flag}
-                                            makerender={()=>this._makerender()}/>
+                                            />
 
                     <View >
                         <Text style={style_bar.title}> {`${this.state.UserName}`} </Text>
