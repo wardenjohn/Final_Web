@@ -35,7 +35,7 @@ export default class Commemt extends Component{
         let opts = {
             method:"get",
         }
-        let url = "http://192.168.57.1:8000/show/"
+        let url = "http://172.20.10.3:8000/show/"
         url = url + `foodid${this.props.id}`
         // alert(url)
         fetch(url,opts)
@@ -87,9 +87,10 @@ export default class Commemt extends Component{
             },
             body: JSON.stringify({
                 text: this.state.submittext,
+                foodid: this.props.id,
             })
         }
-        let url = "http://192.168.57.1:8000/index/"
+        let url = "http://172.20.10.3:8000/index/"
         fetch(url,opts)
         .then((response) => {
             return response.json();  
@@ -109,10 +110,13 @@ export default class Commemt extends Component{
         return(
             <TouchableOpacity>
                 <ListItem
-                    title={item.item.id}
+                    title={item.item.user}
                     subtitle={item.item.text}
-                    
+                   
                 />
+                 <Text>
+                     asdff
+                </Text>
             </TouchableOpacity>
         );
     }

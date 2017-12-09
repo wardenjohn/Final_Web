@@ -21,7 +21,7 @@ import Commemt from './Commemt'
 var info;
 export default class Dishpage extends Component{
     static navigationOptions = ({ navigation }) => ({
-        title : `${navigation.state.params.DishId.login}`,//DishId.name
+        title : `${navigation.state.params.DishId.foodname}`,//DishId.name
     });
     constructor(props){
         super(props);

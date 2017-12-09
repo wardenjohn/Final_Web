@@ -50,7 +50,7 @@ export default class UserLog extends Component{
             })
         }
         
-        let url = "http://192.168.57.1:8000/login/"
+        let url = "http://172.20.10.3:8000/login/"
         fetch(url,opts)
         .then((response) => {  
             return response.json();
@@ -93,7 +93,7 @@ export default class UserLog extends Component{
                 password: this.state.password,
             })
         }
-        let url = "http://192.168.57.1:8000/regist/"
+        let url = "http://172.20.10.3:8000/regist/"
         fetch(url,opts)  
         .then((response) => {
             return response.json();  
