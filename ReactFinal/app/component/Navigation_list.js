@@ -89,18 +89,18 @@ export default class SelectList extends Component{
     }
 
     change_stateVisible(index){
-        //alert(index+1);
         this.setState({
             isVisible : !(this.state.isVisible),
             selectedLevel : index,
         });
-        if(index>=0)
+        if(index>=0){
+            DeviceEventEmitter.emit('DishContainor',`${index+1}`);
             DeviceEventEmitter.emit('Navigation_bar',`${index+1}`);
+            this.props.makerender();
+        }  
         else{
 
         }
-        //DeviceEventEmitter.emit('Navigation_bar',`${this.state.isVisible}`);
-        //alert(index);
     }
 }
 

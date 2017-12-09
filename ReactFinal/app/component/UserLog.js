@@ -49,6 +49,7 @@ export default class UserLog extends Component{
                 password: this.state.password,
             })
         }
+        
         let url = "http://192.168.57.1:8000/login/"
         fetch(url,opts)
         .then((response) => {  
@@ -58,7 +59,13 @@ export default class UserLog extends Component{
             this.setState({text:responseData.massage});
 
             // responseData.username
+            
+            if(this.state.text == "login success"){
+                this.props.changeName(`${responseData.username}`);//return a user in order the change the user nane in the bar 
+            }
+            else{
 
+            }
             alert(this.state.text);
         })  
         .catch((error) =>{  

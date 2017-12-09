@@ -45,15 +45,17 @@ export default class DishContainor extends React.Component{
             level : 1,
             dishes : [],
             change : 1,
+            ren : true,
         }
     }
 
     _test(){
+        
         let opts = {
             method:"get",
         }
         let url = "http://192.168.57.1:8000/showdish/"
-        // alert(this.state.level)
+         alert("fetch!"+this.state.level)
         url = url + `floor${this.state.level}/`
         fetch(url,opts)
         .then((response) => {
@@ -74,19 +76,25 @@ export default class DishContainor extends React.Component{
             })
         })
     }
+
+    _renderDish(){
+        this.setState({ren : !this.state.ren});
+        this.forceUpdate();
+    }
+
     //dishes 只是用于测试的，你应该调用一下this.state.level里面从选择列表传过来的楼层进行选择渲染的元素
     render(){
+        //alert("render me in Dish")
         const { navigate } = this.props.navigation;
+        navigater = navigate;
         if(this.state.level != level){
-            alert(this.state.level);
+            //alert(this.state.level);
             level = this.state.level
             this._test();
         }
-        navigater = navigate;
-        level = this.props.level;
         return(
             <View style={styles.container}>
-            <Navigation_bar />
+            <Navigation_bar renderDish={(level)=>this._renderDish(level)}/>
             <View style={ContainorStyle.containor}>
                 <View style={ContainorStyle.inOneRow}>
                     <List>

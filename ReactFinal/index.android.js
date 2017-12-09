@@ -13,6 +13,9 @@ import {
   View,
   Dimensions,
   DeviceEventEmitter,
+  Modal,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import Navigation_bar from './app/component/Navigation_bar'
 import DishContainor from './app/component/DishContainor'
@@ -28,7 +31,12 @@ export default class ReactFinal extends Component {
     super(props);
     this.state={
       level : 1,
+      ShowBack : true,
     }
+  }
+  
+  _ShowPage(){
+    this.setState({ShowBack : !this.state.ShowBack});
   }
 
   componentDidMount(){
@@ -41,9 +49,28 @@ export default class ReactFinal extends Component {
   }
 
   render() {
-    return (
-          <Page level={this.state.level}/>
-    );
+    if(this.state.ShowBack == true){
+      return(
+        <View style={styles.container}>
+          <Modal visible={this.state.ShowBack}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {this.onRequestClose()}}
+          >
+            <TouchableOpacity style={styles.container}
+              onPress={()=>this._ShowPage()}>
+              <Image style={styles.back} source={require('./app/element/back2.png')} />
+              <Text style={styles.Font}>Click into App</Text>
+            </TouchableOpacity>
+          </Modal>
+        </View>
+      );
+    }
+    else{
+        return (
+            <Page level={this.state.level}/>
+      );
+    }
   }
   handelLevel(event){
       this.setState({ })
@@ -67,9 +94,9 @@ const styles = StyleSheet.create({
   dishView_style : {
     flexDirection : 'row',
   },
-  levelFont : {
+  Font : {
     fontSize : 20,
-    color : 'white',
+    color : 'black',
     alignItems : 'center',
     justifyContent : 'center',
     alignSelf : 'center'

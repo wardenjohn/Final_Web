@@ -27,16 +27,18 @@ export default class Navigation_bar extends Component{
             userVisible : false,
             level : 1,
             flag : 0,
+            rend : true,
+            UserName : "Log in",
         }
         
     }
     select_level(){
+        //DeviceEventEmitter.emit('DishContainor',`${this.state.level}`);
         this.setState({
             listVisible : !this.state.listVisible,
-            flag : 1.
+            flag : 1,
         });
-        this.forceUpdate();
-        DeviceEventEmitter.emit('DishContainor',`${this.state.level}`);
+         this.props.renderDish()
     }
 
     showWindow(){
@@ -47,22 +49,19 @@ export default class Navigation_bar extends Component{
     }
 
     componentWillMount(){
-        this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level,)=>{
+        this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
             this.setState({
                 level : level,
             })
         });
-        this.forceUpdate();
+        this.props.renderDish();
     }
 
-    // shouldComponentUpdate(){
-    //     this.msglistener = DeviceEventEmitter.addListener('Navigation_bar',(level)=>{
-    //         this.setState({
-    //             level : level,
-    //         })
-    //     })
-    //     this.forceUpdate();
-    // }
+    _makerender(){
+        this.setState({rend : !this.state.rend });
+        this.forceUpdate();
+        this.props.renderDish();
+    }
     render(){
         return(
             <View >
@@ -72,16 +71,23 @@ export default class Navigation_bar extends Component{
                                 style = {style_bar.navigate_button}/>
                     </TouchableOpacity>
 
-                        <Navigation_list visible={this.state.listVisible} flag={this.state.flag}/>
+                        <Navigation_list visible={this.state.listVisible} 
+                                            flag={this.state.flag}
+                                            makerender={()=>this._makerender()}/>
 
                     <View >
-                        <Text style={style_bar.title}> Lazy Menu </Text>
+                        <Text style={style_bar.title}> {`${this.state.UserName}`} </Text>
                     </View>
 
                     <TouchableOpacity onPress={()=>this.showWindow()}>
                         <Image source={require('./../element/user.png')} 
                                 style={style_bar.user_button} />
-                        <UserLog visible ={this.state.userVisible} change_function={this._changeUser} flag={this.state.flag}/>
+
+                        <UserLog visible ={this.state.userVisible} 
+                            change_function={this._changeUser} 
+                            flag={this.state.flag}
+                            changeName={(name)=>this._changeName(name)}
+                            />
                     </TouchableOpacity>
                     
                 </View>
@@ -97,6 +103,19 @@ export default class Navigation_bar extends Component{
 
     _changeUser=()=>{
         this.setState({userVisible : !this.state.userVisible})
+    }
+    _changeName(name){
+        this.setState({
+            UserName : name,
+        })
+    }
+
+    _pass(){
+        alert("show pass")
+        this.setState({
+            test : !this.state.test,
+        })
+        this.forceUpdate();
     }
 }
 
