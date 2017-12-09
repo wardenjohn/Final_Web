@@ -16,12 +16,14 @@ import Dishpage from './Dishpage'
 import { List,ListItem } from 'react-native-elements';
 import {Navigator,StackNavigator} from 'react-navigation'
 import Navigation_bar from './Navigation_bar'
-//import DishInformation from './DishInformation';
+//import DishInformation from './../../project/media/upload'
 
 var backg;
 var containor_height;
 var containor_width;
 
+var path = './../../project/media/';
+var ele=['./../element/dish1.jpg','./../element/dish2.jpg','./../element/dish3.jpg'];
 var level=1;
 var navigater;
 /**it is very funny that this.props.navigation is a blank object
@@ -54,8 +56,8 @@ export default class DishContainor extends React.Component{
         let opts = {
             method:"get",
         }
-        let url = "http://172.20.10.3:8000/showdish/"
-         alert("fetch!"+this.state.level)
+        let url = "http://169.254.186.120:8000/showdish/"
+         //alert("fetch!"+this.state.level)
         url = url + `floor${this.state.level}/`
         fetch(url,opts)
         .then((response) => {
@@ -63,7 +65,6 @@ export default class DishContainor extends React.Component{
         })
         .then((responseData) => {  
             this.setState({dishes:responseData});
-            // alert(this.state.dishes);
         })
         .catch((error) =>{  
             alert(error);
@@ -117,6 +118,8 @@ export default class DishContainor extends React.Component{
     }
 
     _renderItem(item){
+        //alert(path+item.item.headImg);
+        //var pic = {src : require('./../element/dish1.jpg')}
         return(
             <TouchableOpacity 
                 onPress={()=>navigater('Profile',{DishId : item.item})}
@@ -124,9 +127,10 @@ export default class DishContainor extends React.Component{
 
                <ListItem
                     title={item.item.foodname}
-                    subtitle = {item.item.price}
+                    subtitle = {'￥'+item.item.price}
                     roundAvatar
-                    avatar={ {uri : item.item.avatar_url} }
+                    avatar={ require('./../element/dish1.jpg') }
+                    //avatar={pic.src}
                />
             </TouchableOpacity>
         )

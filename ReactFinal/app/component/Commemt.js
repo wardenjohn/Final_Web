@@ -35,7 +35,7 @@ export default class Commemt extends Component{
         let opts = {
             method:"get",
         }
-        let url = "http://172.20.10.3:8000/show/"
+        let url = "http://169.254.186.120:8000/show/"
         url = url + `foodid${this.props.id}`
         // alert(url)
         fetch(url,opts)
@@ -44,7 +44,7 @@ export default class Commemt extends Component{
         })
         .then((responseData) => {  
             this.setState({comment:responseData});
-            alert(this.state.comment[0].text);
+            //'alert(this.state.comment[0].text);
         })
         .catch((error) =>{  
             // alert(error);
@@ -90,7 +90,7 @@ export default class Commemt extends Component{
                 foodid: this.props.id,
             })
         }
-        let url = "http://172.20.10.3:8000/index/"
+        let url = "http://169.254.186.120:8000/index/"
         fetch(url,opts)
         .then((response) => {
             return response.json();  
@@ -115,7 +115,7 @@ export default class Commemt extends Component{
                    
                 />
                  <Text>
-                     asdff
+                     {`${item.item.time}`}
                 </Text>
             </TouchableOpacity>
         );

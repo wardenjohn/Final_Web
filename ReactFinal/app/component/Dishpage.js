@@ -36,10 +36,11 @@ export default class Dishpage extends Component{
         var price = params.DishId.price
         var id = params.DishId.id
         var description = params.DishId.description
+        //var pic = {src:require('./../element/dish1.jpg')}
         return(
             <ScrollView style={PageStyle.containor}>
                 <View style={PageStyle.imageView}>
-                    <Image source={require(`./../element/dish.jpg`)}
+                    <Image source={require('./../element/dish1.jpg')}
                     style={PageStyle.ImageStyle}/>
                     
                 </View>
@@ -47,8 +48,8 @@ export default class Dishpage extends Component{
                 <View style={PageStyle.seperator}/>
 
                 <View style={PageStyle.LikeView}>
-                    <Text>{params.DishId.id}</Text>
-                    <TouchableOpacity>
+                    <Text>点赞的人数：{params.DishId.id}</Text>
+                    <TouchableOpacity onPress={()=>this._likeView()}>
                         <Image source={require('./../element/like.png')} 
                             style={PageStyle.Like}
                         />
@@ -70,6 +71,33 @@ export default class Dishpage extends Component{
                 
             </ScrollView>
         );
+    }
+
+    _likeView(){
+        let opts = {
+            method:"post",
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // text: this.state.submittext,
+                foodid: params.DishId.id,
+            })
+        }
+        let url = "http://169.254.186.120:8000/pdianzan/"
+        fetch(url,opts)
+        .then((response) => {
+            return response.json();  
+        })
+        .then((responseData) => {  
+            // let temp = responseData;
+            this.setState({text:responseData});
+            alert(this.state.text);
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        })
     }
 }
 

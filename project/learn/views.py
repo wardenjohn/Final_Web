@@ -8,7 +8,7 @@ from django import forms
 from django.forms import ModelForm 
 from django.contrib import auth
 from django.contrib.auth.models import User
-from learn.models import Massage,Dish,Img
+from learn.models import Massage,Dish,Img,SayGood
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize,deserialize
 from django.db.models.query import QuerySet
@@ -112,25 +112,23 @@ def img(request):
         # print(img.headImg)
         return HttpResponse(data)
         # return render_to_response('1.html',{'form': ImgForm})
-# class ImgForm(ModelForm):  
-#     class Meta:  
-#         model=Img  
 
-# #views.py  
-# @csrf_exempt   
-# def add(request):  
-#     if request.method == 'POST':  
-#         form = ImgForm(request.POST,request.FILES)  
-#         if form.is_valid():  
-#             form.save()  
-#     else:  
-#         form = ImgForm()  
-#     return render_to_response('add.html', {'form': form})  
-  
-  
-# def list(request):  
-#     template_var={}  
-#     photos=Img.objects.all()  
-#     template_var['pics']=photos  
-#     return render_to_response('list.html',template_var,  
-#                        context_instance=RequestContext(request)) ;
+@csrf_exempt
+def pdianzan(request):
+    req = json.loads(request.body)
+    foodid = req['foodid']
+    if request.user.is_authenticated:
+        res = SayGood.objects.filter(user = request.user.username,foodid = foodid)
+        if res.exists():
+            return HttpResponse(json.dumps("already dianzan for this food!"))
+        else:
+            data = SayGood()
+            data.foodid = foodid
+            data.user = request.user.username
+            data.save()
+            return HttpResponse(json.dumps("dianzan ~!"))
+    else:
+        return HttpResponse(json.dumps("login first!"))
+def gdianzan(request,foodid):
+    res = SayGood.objects.filter(foodid = foodid)
+    return HttpResponse(json.dumps(res.count()))

@@ -50,7 +50,7 @@ export default class UserLog extends Component{
             })
         }
         
-        let url = "http://172.20.10.3:8000/login/"
+        let url = "http://169.254.186.120:8000/login/"
         fetch(url,opts)
         .then((response) => {  
             return response.json();
@@ -59,7 +59,6 @@ export default class UserLog extends Component{
             this.setState({text:responseData.massage});
 
             // responseData.username
-            
             if(this.state.text == "login success"){
                 this.props.changeName(`${responseData.username}`);//return a user in order the change the user nane in the bar 
             }
@@ -102,17 +101,25 @@ export default class UserLog extends Component{
             // let temp = responseData;
 
             this.setState({text:responseData});
+
+            this.props.change_function();//can jump out the window
+
             alert(this.state.text);
         })  
         .catch((error) =>{  
             alert(error);  
         }) 
+        this.props.change_function();
     }//this function is for the registry button
 
     _changeState(){
         this.setState({isVisible : this.state.isVisible});
     }
     chage_visable(){
+        this.props.change_function();
+    }
+    _logout(){
+
         this.props.change_function();
     }
     render(){
@@ -154,9 +161,9 @@ export default class UserLog extends Component{
                         </View>
 
                         <View style={style_User.viewButton}>
-                            <Button title={'      确定      '} onPress={()=>this.confirm()}/>
+                            <Button title={'      登录      '} onPress={()=>this.confirm()}/>
                             <Text> </Text>
-                            <Button title={'      取消      '} onPress={()=>this.chage_visable()}/>
+                            <Button title={'      注销      '} onPress={()=>this._logout()}/>
                         </View> 
 
                         <Button title={'注册'} onPress={()=>this.registry()}/>    

@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from learn import views
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'index/', views.index),
@@ -25,7 +27,9 @@ urlpatterns = [
     url(r'^show/foodid(.+)/$', views.showmassage),
     url(r'^showdish/floor(.+)/$', views.showdish),
     url('admin/', admin.site.urls),
+    url('pdianzan/',views.pdianzan),
+    url('gdianzan/foodid(.+)/$',views.gdianzan),
     # url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'img/',views.img)
 ]
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

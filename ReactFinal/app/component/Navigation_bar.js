@@ -30,7 +30,25 @@ export default class Navigation_bar extends Component{
             rend : true,
             UserName : "Log in",
         }
+        //////
+        let opts = {
+            method:"GET",
+        }
         
+        let url = "http://169.254.186.120:8000/getloginuser/"
+        fetch(url,opts)
+        .then((response) => {  
+            return response.json();
+        })  
+        .then((responseData) => {  
+            // responseData.username   
+            if(this.state.text != ""){
+                this.setState({ UserName : responseData});
+            }
+        })  
+        .catch((error) =>{  
+            alert(error);  
+        }) 
     }
     select_level(){
         //DeviceEventEmitter.emit('DishContainor',`${this.state.level}`);

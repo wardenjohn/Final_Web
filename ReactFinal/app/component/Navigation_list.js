@@ -64,7 +64,7 @@ export default class SelectList extends Component{
                                 ItemSeparatorComponent = {this.sepa}
                             />
                         </List>
-                        <Button title='隐藏选择菜单栏' onPress={()=>this.change_stateVisible()}/>
+                        <Button title='隐藏选择菜单栏' onPress={()=>this.disvis()}/>
                     </View>
                 </Modal>
                 
@@ -89,8 +89,8 @@ export default class SelectList extends Component{
     }
 
     change_stateVisible(index){
+        isvisible = !isvisible;
         this.setState({
-            isVisible : !(this.state.isVisible),
             selectedLevel : index,
         });
         if(index>=0){
@@ -100,6 +100,11 @@ export default class SelectList extends Component{
         else{
 
         }
+    }
+    disvis(){
+        this.setState({
+            isVisible : !this.state.isVisible,
+        })
     }
 }
 
